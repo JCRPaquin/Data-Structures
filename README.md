@@ -8,6 +8,7 @@ Each data structure gets:
 - A high level description
 - Example use cases
 - Comparisons (or links) to related structures
+- Test cases!
 
 The categories are as follows:
 - [ ] Primitives
