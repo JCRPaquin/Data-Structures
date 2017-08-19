@@ -2,7 +2,7 @@
 ## A collection of data structure implementations for learning purposes
 ----
 
-The goal is to implement non-primitive data structures on the [Wikipedia Data Structures](https://en.wikipedia.org/wiki/List_of_data_structures) page.
+The goal is to implement non-primitive data structures from the [Wikipedia Data Structures](https://en.wikipedia.org/wiki/List_of_data_structures) page.
 
 Each data structure gets:
 - A high level description
