@@ -1,0 +1,4 @@
+[submodule "test/Catch"]
+	path = test/Catch
+	url = https://github.com/philsquared/Catch
+	branch = master
