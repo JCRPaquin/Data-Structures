@@ -2,6 +2,10 @@
 ## A collection of data structure implementations for learning purposes
 ----
 
+Language: C++
+Testing rig: [Catch](http://catch-lib.net/)
+Build system: [CMake](https://cmake.org/)
+
 The goal is to implement non-primitive data structures from the [Wikipedia Data Structures](https://en.wikipedia.org/wiki/List_of_data_structures) page.
 
 Each data structure gets:
