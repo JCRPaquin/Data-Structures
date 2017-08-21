@@ -4,7 +4,7 @@ project(Data-Structures VERSION 0.0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_subdirectory(src  build)
-add_subdirectory(test build)
+add_subdirectory(src)
+add_subdirectory(test)
 
 
