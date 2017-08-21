@@ -21,7 +21,7 @@ target_include_directories(Catch INTERFACE ${CATCH_HEADER_DIR})
 include_directories(../src)
 
 set(TEST_SOURCES
-        test.cpp)
+        test.cpp tests/test_catch.cpp)
 
 add_executable(${PROJECT_NAME} ${TEST_SOURCES})
 target_link_libraries(${PROJECT_NAME} data-structures Catch)
