@@ -6,7 +6,7 @@
 #define DATA_STRUCTURES_BIGINT_H
 
 
-class bigint {
+class big_integer {
 
 };
 
