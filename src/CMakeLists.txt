@@ -15,8 +15,9 @@ add_subdirectory(trees)
 
 # Done adding data structure subdirectories
 
-add_library(${PROJECT_NAME})
-target_link_libraries(${PROJECT_NAME} abstracts
+add_library(${PROJECT_NAME} INTERFACE)
+target_link_libraries(${PROJECT_NAME} INTERFACE
+                                    abstracts
 	                                  composites
 	                                  graphs
 	                                  linear
