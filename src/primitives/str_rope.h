@@ -26,7 +26,31 @@
 #include <string>
 #include <memory>
 
-struct rope_node;
+struct rope_node {
+    rope_node();
+    rope_node(rope_node&);
+    rope_node(const std::string&);
+
+    ~rope_node() {};
+
+    void set_left(std::shared_ptr<rope_node>);
+    void set_right(std::shared_ptr<rope_node>);
+
+    std::unique_ptr<std::string> to_string() const;
+
+    bool is_leaf = false;
+    size_t actual_size = 0;
+    union {
+        struct {
+            size_t len;
+            std::shared_ptr<rope_node> left, right;
+        } data;
+        std::unique_ptr<const std::string> str;
+    };
+
+private:
+    void to_string(std::ostringstream&);
+};
 
 class str_rope {
 public:
