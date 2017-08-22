@@ -1,5 +1,8 @@
-//
-// Created by Jean-Claude Paquin on 8/21/17.
-//
+
+/**
+ * Implementation of a string rope.
+ *
+ * @author Jean-Claude Paquin
+ **/
 
 #include "str_rope.h"
