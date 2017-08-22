@@ -21,16 +21,20 @@ rope_node::rope_node(rope_node& other) : is_leaf(other.is_leaf), actual_size(oth
     } else {
         data.len = other.data.len;
 
-        if(other.data.left->is_leaf) {
-            data.left = other.data.left;
-        } else {
-            data.left = std::make_shared<rope_node>(*other.data.left.get());
+        if(other.data.left) {
+            if(other.data.left->is_leaf) {
+                data.left = other.data.left;
+            } else {
+                data.left = std::make_shared<rope_node>(*other.data.left.get());
+            }
         }
 
-        if(other.data.right->is_leaf) {
-            data.right = other.data.right;
-        } else {
-            data.right = std::make_shared<rope_node>(*other.data.right.get());
+        if(other.data.right) {
+            if(other.data.right && other.data.right->is_leaf) {
+                data.right = other.data.right;
+            } else {
+                data.right = std::make_shared<rope_node>(*other.data.right.get());
+            }
         }
     }
 }
