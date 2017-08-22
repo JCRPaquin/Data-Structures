@@ -87,7 +87,9 @@ void rope_node::to_string(std::ostringstream& stream) {
     if(is_leaf) {
         stream << *str;
     } else {
-        data.left->to_string(stream);
-        data.right->to_string(stream);
+        if(data.left)
+            data.left->to_string(stream);
+        if(data.right)
+            data.right->to_string(stream);
     }
 }
