@@ -17,7 +17,7 @@ rope_node::rope_node() {
 rope_node::rope_node(rope_node& other) : is_leaf(other.is_leaf), actual_size(other.actual_size) {
     if(is_leaf) {
         str.release();
-        str = std::make_unique<const std::string>(*other.str.get());
+        str = std::make_unique<const std::string>(*other.str);
     } else {
         data.len = other.data.len;
 
@@ -25,7 +25,7 @@ rope_node::rope_node(rope_node& other) : is_leaf(other.is_leaf), actual_size(oth
             if(other.data.left->is_leaf) {
                 data.left = other.data.left;
             } else {
-                data.left = std::make_shared<rope_node>(*other.data.left.get());
+                data.left = std::make_shared<rope_node>(*other.data.left);
             }
         }
 
@@ -33,7 +33,7 @@ rope_node::rope_node(rope_node& other) : is_leaf(other.is_leaf), actual_size(oth
             if(other.data.right && other.data.right->is_leaf) {
                 data.right = other.data.right;
             } else {
-                data.right = std::make_shared<rope_node>(*other.data.right.get());
+                data.right = std::make_shared<rope_node>(*other.data.right);
             }
         }
     }
@@ -67,7 +67,7 @@ void rope_node::set_right(std::shared_ptr<rope_node> right) {
 
 std::unique_ptr<std::string> rope_node::to_string() const {
     if(is_leaf) {
-        return std::make_unique<std::string>(*str.get());
+        return std::make_unique<std::string>(*str);
     } else {
         std::ostringstream *stream = new std::ostringstream();
 
@@ -85,7 +85,7 @@ std::unique_ptr<std::string> rope_node::to_string() const {
 
 void rope_node::to_string(std::ostringstream& stream) {
     if(is_leaf) {
-        stream << *str.get();
+        stream << *str;
     } else {
         data.left->to_string(stream);
         data.right->to_string(stream);
