@@ -10,26 +10,24 @@
 TEST_CASE("Empty rope_node", "[rope_node]") {
     rope_node node;
 
-    SECTION("Empty node has nullptr left & right") {
-        REQUIRE(!node.data.left);
-        REQUIRE(!node.data.right);
-    }
+    REQUIRE(!node.data.left);
+    REQUIRE(!node.data.right);
 
-    SECTION("Empty node to string") {
-        REQUIRE(*node.to_string() == "");
-    }
+    REQUIRE(*node.to_string() == "");
 
-    SECTION("Empty node is not a leaf") {
-        REQUIRE(!node.is_leaf);
-    }
+    REQUIRE(!node.is_leaf);
+
+    REQUIRE(node.actual_size == 0);
 }
 
 TEST_CASE("String rope_node", "[rope_node]") {
     rope_node node(std::string("wow!"));
 
-    SECTION("String node is a leaf") {
-        REQUIRE(node.is_leaf);
-    }
+    REQUIRE(*node.to_string() == "wow!");
+
+    REQUIRE(node.is_leaf);
+
+    REQUIRE(node.actual_size == 4);
 }
 
 TEST_CASE("Copy constructor for rope_node", "[rope_node]") {
