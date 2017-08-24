@@ -47,3 +47,73 @@ TEST_CASE("Copy constructor for rope_node", "[rope_node]") {
     }
 }
 
+TEST_CASE("Hierarchy tests", "[rope_node]") {
+    using namespace std;
+
+    shared_ptr<rope_node>
+            leaf1 = make_shared<rope_node>(string("a")),
+            leaf2 = make_shared<rope_node>(string("b")),
+            leaf3 = make_shared<rope_node>(string("c"));
+
+    rope_node node;
+
+    SECTION("Balanced root node") {
+        node.set_left(leaf1);
+        node.set_right(leaf2);
+
+        REQUIRE(*node.to_string() == "ab");
+    }
+
+    SECTION("Unbalanced root node") {
+        SECTION("No right leaf") {
+            node.set_left(leaf1);
+
+            REQUIRE(*node.to_string() == "a");
+        }
+
+        SECTION("No left leaf") {
+            node.set_right(leaf2);
+
+            REQUIRE(*node.to_string() == "b");
+        }
+    }
+
+    SECTION("Deeper hierarchy") {
+        shared_ptr<rope_node>
+                inner1 = make_shared<rope_node>(),
+                inner2 = make_shared<rope_node>();
+
+        SECTION("Two levels, balanced") {
+            {
+                inner1->set_left(leaf1);
+                inner1->set_right(leaf2);
+            }
+            node.set_left(inner1);
+
+            {
+                inner2->set_left(leaf2);
+                inner2->set_right(leaf3);
+            }
+            node.set_right(inner2);
+
+            REQUIRE(*node.to_string() == "abbc");
+            REQUIRE(node.actual_size == 4);
+            REQUIRE(inner1->actual_size == 2);
+        }
+
+        SECTION("Two levels, unbalanced") {
+            {
+                inner2->set_left(leaf1);
+                inner2->set_right(leaf2);
+            }
+            {
+                inner1->set_left(inner2);
+                inner1->set_right(inner2);
+            }
+            node.set_left(inner1);
+
+            REQUIRE(*node.to_string() == "abab");
+        }
+    }
+}
+
