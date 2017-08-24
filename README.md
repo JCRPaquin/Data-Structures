@@ -20,8 +20,6 @@ The categories are as follows:
         * [ ] Rope
         * [ ] Trie
     + [ ] Big integers
-- [ ] Composites
-    + [ ] Tagged unions
 - [ ] Abstract Data Types
     + [ ] Maps
         * [ ] Associative arrays

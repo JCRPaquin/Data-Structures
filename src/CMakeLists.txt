@@ -7,7 +7,6 @@ set(CMAKE_CXX_STANDARD 14)
 # Add data structure subdirectories
 
 add_subdirectory(abstracts)
-add_subdirectory(composites)
 add_subdirectory(graphs)
 add_subdirectory(linear)
 add_subdirectory(primitives)
@@ -17,8 +16,7 @@ add_subdirectory(trees)
 
 add_library(${PROJECT_NAME} INTERFACE)
 target_link_libraries(${PROJECT_NAME} INTERFACE
-                                    abstracts
-	                                  composites
+                                      abstracts
 	                                  graphs
 	                                  linear
 	                                  primitives
