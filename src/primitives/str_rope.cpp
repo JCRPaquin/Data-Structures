@@ -65,6 +65,22 @@ void rope_node::set_right(std::shared_ptr<rope_node> right) {
     this->data.right = right;
 }
 
+void rope_node::update_size() {
+    if(this->is_leaf) {
+        actual_size = this->str->length();
+    } else {
+        if(this->data.left) {
+            this->data.left->update_size();
+            actual_size += this->data.left->actual_size;
+        }
+
+        if(this->data.right) {
+            this->data.right->update_size();
+            actual_size += this->data.right->actual_size;
+        }
+    }
+}
+
 std::unique_ptr<std::string> rope_node::to_string() const {
     if(is_leaf) {
         return std::make_unique<std::string>(*str);

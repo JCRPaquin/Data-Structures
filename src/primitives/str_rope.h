@@ -35,6 +35,7 @@ struct rope_node {
 
     void set_left(std::shared_ptr<rope_node>);
     void set_right(std::shared_ptr<rope_node>);
+    void update_size();
 
     std::unique_ptr<std::string> to_string() const;
 
