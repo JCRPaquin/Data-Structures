@@ -7,7 +7,6 @@
 
 #include "str_rope.h"
 #include <sstream>
-#include <cstring>
 
 
 rope_node::rope_node() {
