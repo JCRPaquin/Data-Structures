@@ -44,38 +44,41 @@ rope_node::rope_node(const std::string& str) : is_leaf(true), actual_size(str.le
 }
 
 void rope_node::set_left(std::shared_ptr<rope_node> left) {
-    if(this->is_leaf) return;
+    if(is_leaf) return;
 
-    if(this->data.left) {
-        actual_size -= this->data.left->actual_size;
+    if(data.left) {
+        actual_size -= data.left->actual_size;
     }
     actual_size += left->actual_size;
     data.len = left->actual_size;
-    this->data.left = left;
+    data.left = left;
 }
 
 void rope_node::set_right(std::shared_ptr<rope_node> right) {
-    if(this->is_leaf) return;
+    if(is_leaf) return;
 
-    if(this->data.right) {
-        actual_size -= this->data.right->actual_size;
+    if(data.right) {
+        actual_size -= data.right->actual_size;
     }
     actual_size += right->actual_size;
-    this->data.right = right;
+    data.right = right;
 }
 
 void rope_node::update_size() {
     if(this->is_leaf) {
-        actual_size = this->str->length();
+        actual_size = str->length();
     } else {
-        if(this->data.left) {
-            this->data.left->update_size();
-            actual_size += this->data.left->actual_size;
+        actual_size = 0;
+
+        if(data.left) {
+            data.left->update_size();
+            actual_size += data.left->actual_size;
         }
 
-        if(this->data.right) {
-            this->data.right->update_size();
-            actual_size += this->data.right->actual_size;
+        if(data.right) {
+            if(data.right != data.left)
+                data.right->update_size();
+            actual_size += data.right->actual_size;
         }
     }
 }
