@@ -117,3 +117,22 @@ TEST_CASE("Hierarchy tests", "[rope_node]") {
     }
 }
 
+TEST_CASE("update_size()", "[rope_node]") {
+    using namespace std;
+
+    rope_node node;
+    shared_ptr<rope_node>
+            inner = make_shared<rope_node>(),
+            leaf = make_shared<rope_node>(string("a"));
+
+    node.set_left(inner);
+    inner->set_left(leaf);
+    inner->set_right(leaf);
+
+    REQUIRE(inner->actual_size == 2);
+    REQUIRE(node.actual_size == 0);
+
+    node.update_size();
+
+    REQUIRE(node.actual_size == 2);
+}
