@@ -9,6 +9,8 @@
 #include <sstream>
 
 
+// Define rope_node helper struct
+
 rope_node::rope_node() {
     memset(&data, 0, sizeof(data));
 }
@@ -111,3 +113,5 @@ void rope_node::to_string(std::ostringstream& stream) {
             data.right->to_string(stream);
     }
 }
+
+// End of rope_node definitions
