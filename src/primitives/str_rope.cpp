@@ -115,3 +115,21 @@ void rope_node::to_string(std::ostringstream& stream) {
 }
 
 // End of rope_node definitions
+
+
+// Define str_rope
+
+str_rope::str_rope() {
+    root = std::make_shared<rope_node>();
+}
+
+str_rope::str_rope(const std::string &str) {
+    root = std::make_shared<rope_node>();
+    auto leaf = std::make_shared<rope_node>(str);
+
+    root->set_left(leaf);
+}
+
+str_rope::str_rope(const str_rope &other) {
+    root = std::make_shared<rope_node>(*other.root);
+}
