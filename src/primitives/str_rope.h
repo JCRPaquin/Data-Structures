@@ -25,6 +25,7 @@
 #include <cstdio>
 #include <string>
 #include <memory>
+#include <vector>
 
 struct rope_node {
     rope_node();
@@ -76,7 +77,7 @@ public:
      *
      * @param other rope to copy
      */
-    str_rope(const str_rope& other, size_t begin, size_t end);
+    str_rope(const str_rope& other, size_t start, size_t end);
 
 
     /**
@@ -92,11 +93,11 @@ public:
     /**
      * Prepends another rope to this rope.
      */
-    void prepend(str_rope&);
+    void prepend(str_rope& other);
     /**
      * Appends another rope to this rope.
      */
-    void append(str_rope&);
+    void append(str_rope& other);
 
 
     /**
@@ -130,10 +131,12 @@ public:
     size_t get_length() const;
 
 private:
-    size_t length;
     std::shared_ptr<rope_node> root;
 
     void split(size_t);
+    std::unique_ptr<std::vector<std::shared_ptr<rope_node>>>
+    nodes_between(size_t start, size_t end, size_t& start_idx) const;
+    void reconstruct(std::vector<std::shared_ptr<rope_node>>& leaves);
 };
 
 

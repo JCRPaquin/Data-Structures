@@ -159,6 +159,14 @@ TEST_CASE("str_rope constructors", "[str_rope]") {
         REQUIRE(rope2.get_length() == 2);
         REQUIRE(*rope2.to_string() == "hi");
     }
+
+    SECTION("Sub-string constructor, no hierarchy") {
+        str_rope rope1(std::string("**HI**"));
+        str_rope rope2(rope1, 2, 4);
+
+        REQUIRE(rope2.get_length() == 2);
+        REQUIRE(*rope2.to_string() == "HI");
+    }
 }
 
 TEST_CASE("Rope indexing", "[str_rope]") {
