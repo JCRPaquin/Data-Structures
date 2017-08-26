@@ -20,6 +20,7 @@ rope_node::rope_node(rope_node& other) : is_leaf(other.is_leaf), actual_size(oth
         str.release();
         str = std::make_unique<const std::string>(*other.str);
     } else {
+        memset(&data, 0, sizeof(data));
         data.len = other.data.len;
 
         if(other.data.left) {
@@ -132,6 +133,26 @@ str_rope::str_rope(const std::string &str) {
 
 str_rope::str_rope(const str_rope &other) {
     root = std::make_shared<rope_node>(*other.root);
+}
+
+char str_rope::operator[](size_t index) const {
+    std::shared_ptr<rope_node> current = root;
+    size_t node_index = index;
+
+    while(current) {
+        if(current->is_leaf) {
+            return (*current->str)[node_index];
+        }
+
+        if(node_index >= current->data.len) {
+            node_index -= current->data.len;
+            current = current->data.right;
+        } else {
+            current = current->data.left;
+        }
+    }
+
+    return 0;
 }
 
 std::unique_ptr<std::string> str_rope::to_string() const {

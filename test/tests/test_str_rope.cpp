@@ -136,3 +136,36 @@ TEST_CASE("update_size()", "[rope_node]") {
 
     REQUIRE(node.actual_size == 2);
 }
+
+TEST_CASE("str_rope constructors", "[str_rope]") {
+    SECTION("Base constructor") {
+        str_rope rope;
+
+        REQUIRE(rope.get_length() == 0);
+        REQUIRE(*rope.to_string() == "");
+    }
+
+    SECTION("Pre-initialization constructor") {
+        str_rope rope(std::string("wowee!"));
+
+        REQUIRE(rope.get_length() == 6);
+        REQUIRE(*rope.to_string() == "wowee!");
+    }
+
+    SECTION("Copy constructor") {
+        str_rope rope1(std::string("hi"));
+        str_rope rope2(rope1);
+
+        REQUIRE(rope2.get_length() == 2);
+        REQUIRE(*rope2.to_string() == "hi");
+    }
+}
+
+TEST_CASE("Rope indexing", "[str_rope]") {
+    SECTION("Basic indexing (no hierarchy)", "[str_rope]") {
+        str_rope rope(std::string("abcde"));
+
+        REQUIRE(rope[0] == 'a');
+        REQUIRE(rope[4] == 'e');
+    }
+}
