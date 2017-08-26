@@ -133,3 +133,12 @@ str_rope::str_rope(const std::string &str) {
 str_rope::str_rope(const str_rope &other) {
     root = std::make_shared<rope_node>(*other.root);
 }
+
+std::unique_ptr<std::string> str_rope::to_string() const {
+    return root->to_string();
+}
+
+size_t str_rope::get_length() const {
+    return root->actual_size;
+}
+
