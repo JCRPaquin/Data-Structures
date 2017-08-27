@@ -214,8 +214,8 @@ std::unique_ptr<std::vector<std::shared_ptr<rope_node>>>
 str_rope::nodes_between(size_t start, size_t end, size_t &start_idx) const {
     if(end > root->actual_size)
         throw std::invalid_argument("end index > length of rope");
-    if(start >= end)
-        throw std::invalid_argument("start index >= end index");
+    if(start > end)
+        throw std::invalid_argument("start index > end index");
 
     auto nodes = std::make_unique<std::vector<std::shared_ptr<rope_node>>>();
     start_idx = start;
