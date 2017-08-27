@@ -207,3 +207,13 @@ TEST_CASE("Prepend/append", "[str_rope]") {
     rope2.append(rope2);
     REQUIRE(*rope2.to_string() == "wowee!wowee!");
 }
+
+TEST_CASE("to_string sub-string version", "[str_rope]") {
+    str_rope rope1(std::string("**"));
+    str_rope rope2(std::string("HI"));
+
+    rope2.prepend(rope1);
+    rope2.append(rope1);
+
+    REQUIRE(*rope2.to_string(2, 4) == "HI");
+}

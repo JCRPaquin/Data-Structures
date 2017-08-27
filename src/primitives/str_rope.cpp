@@ -352,6 +352,35 @@ std::unique_ptr<std::string> str_rope::to_string() const {
     return root->to_string();
 }
 
+std::unique_ptr<std::string> str_rope::to_string(size_t start, size_t end) const {
+    std::unique_ptr<std::ostringstream> stream = std::make_unique<std::ostringstream>();
+
+    size_t start_idx = 0;
+    auto nodes = nodes_between(start, end, start_idx);
+
+    if(nodes->size() == 1) {
+        std::string &base = *nodes->at(0)->to_string();
+        *stream << base.substr(start_idx, end - start);
+    } else {
+        size_t new_len = end-start;
+
+        std::string &base = *nodes->at(0)->to_string();
+        *stream << base.substr(start_idx, base.length() - start_idx);
+        new_len -= base.length() - start_idx;
+
+        for(size_t i = 1; i < nodes->size(); i++) {
+            std::shared_ptr<rope_node> &node = nodes->at(i);
+            if(node->str->length() < new_len) {
+                *stream << node->str->substr(0, new_len);
+            } else {
+                *stream << *node->str;
+            }
+        }
+    }
+
+    return std::make_unique<std::string>(stream->str());
+}
+
 size_t str_rope::get_length() const {
     return root->actual_size;
 }
