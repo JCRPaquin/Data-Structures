@@ -133,9 +133,9 @@ public:
 private:
     std::shared_ptr<rope_node> root;
 
-    void split(size_t);
     std::unique_ptr<std::vector<std::shared_ptr<rope_node>>>
     nodes_between(size_t start, size_t end, size_t& start_idx) const;
+    
     void reconstruct(std::vector<std::shared_ptr<rope_node>>& leaves);
 };
 
