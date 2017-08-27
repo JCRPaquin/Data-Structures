@@ -348,3 +348,19 @@ size_t str_rope::get_length() const {
     return root->actual_size;
 }
 
+void str_rope::prepend(str_rope &other) {
+    auto new_root = std::make_shared<rope_node>();
+    new_root->set_left(other.root);
+    new_root->set_right(root);
+
+    root = new_root;
+}
+
+void str_rope::append(str_rope &other) {
+    auto new_root = std::make_shared<rope_node>();
+    new_root->set_left(root);
+    new_root->set_right(other.root);
+
+    root = new_root;
+}
+

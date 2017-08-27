@@ -177,3 +177,14 @@ TEST_CASE("Rope indexing", "[str_rope]") {
         REQUIRE(rope[4] == 'e');
     }
 }
+
+TEST_CASE("Prepend/append", "[str_rope]") {
+    str_rope rope1(std::string("wow"));
+    str_rope rope2(std::string("ee!"));
+
+    rope2.prepend(rope1);
+    REQUIRE(*rope2.to_string() == "wowee!");
+
+    rope2.append(rope2);
+    REQUIRE(*rope2.to_string() == "wowee!wowee!");
+}
