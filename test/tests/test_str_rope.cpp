@@ -167,6 +167,25 @@ TEST_CASE("str_rope constructors", "[str_rope]") {
         REQUIRE(rope2.get_length() == 2);
         REQUIRE(*rope2.to_string() == "HI");
     }
+
+    SECTION("Sub-string constructor, hierarchy") {
+        str_rope rope1(std::string("Hello, my name is "));
+        str_rope rope2(std::string("Caoilin"));
+        str_rope rope3(std::string("JOHN CENA"));
+
+        rope2.prepend(rope1);
+        rope3.prepend(rope1);
+
+        str_rope rope4(std::string(", and your "));
+
+        rope4.prepend(rope2);
+
+        str_rope rope5(rope3, 10, 27);
+
+        rope4.append(rope5);
+
+        REQUIRE(*rope4.to_string() == "Hello, my name is Caoilin, and your name is JOHN CENA");
+    }
 }
 
 TEST_CASE("Rope indexing", "[str_rope]") {
