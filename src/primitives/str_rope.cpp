@@ -159,7 +159,8 @@ str_rope::str_rope(const str_rope &other, size_t start, size_t end) {
             new_len -= base.length() - start_idx;
         }
 
-        for(std::shared_ptr<rope_node> &node : *nodes) {
+        for(size_t i = 1; i < nodes->size(); i++) {
+            std::shared_ptr<rope_node> &node = nodes->at(i);
             if(node->str->length() < new_len) {
                 construct_from->push_back(node);
             } else {
@@ -274,7 +275,10 @@ str_rope::nodes_between(size_t start, size_t end, size_t &start_idx) const {
                      * If we did diverge before this then towards_end will be appropriate, and
                      *   end_idx doesn't matter.
                      */
-                    return add_nodes(next, towards_end, end_idx - current->data.len);
+                    if(current->data.right)
+                        return add_nodes(current->data.right, towards_end, end_idx - current->data.len);
+                    else
+                        return false;
                 } else {
                     return true;
                 }
@@ -288,8 +292,11 @@ str_rope::nodes_between(size_t start, size_t end, size_t &start_idx) const {
                     return false;
                 }
 
-                add_nodes(current->data.left, false, end_idx);
-                return add_nodes(current->data.right, false, end_idx);
+                if(current->data.left)
+                    add_nodes(current->data.left, false, end_idx);
+                if(current->data.right)
+                    add_nodes(current->data.right, false, end_idx);
+                return false;
             } else {
                 if(current->is_leaf) {
                     nodes->push_back(current);
@@ -301,7 +308,8 @@ str_rope::nodes_between(size_t start, size_t end, size_t &start_idx) const {
                     return add_nodes(current->data.left, true, end_idx);
                 } else {
                     // End is to the right, add the left sub-tree
-                    add_nodes(current->data.left, false, end_idx);
+                    if(current->data.left)
+                        add_nodes(current->data.left, false, end_idx);
                     return add_nodes(current->data.right, true, end_idx - current->data.len);
                 }
             }
