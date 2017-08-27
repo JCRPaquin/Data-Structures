@@ -197,6 +197,28 @@ TEST_CASE("Rope indexing", "[str_rope]") {
     }
 }
 
+TEST_CASE("Rope character substitution", "[str_rope]") {
+    SECTION("Basic substitution (no hierarchy)") {
+        str_rope rope(std::string("bbcde"));
+        rope.set_char(0, 'a');
+
+        REQUIRE(rope[0] == 'a');
+        REQUIRE(*rope.to_string() == "abcde");
+    }
+
+    SECTION("Hierarchy substitution") {
+        str_rope rope1("Cao");
+        str_rope rope2("il");
+        str_rope rope3("nn");
+
+        rope1.append(rope2);
+        rope1.append(rope3);
+
+        rope1.set_char(5, 'i');
+        REQUIRE(*rope1.to_string() == "Caoilin");
+    }
+}
+
 TEST_CASE("Prepend/append", "[str_rope]") {
     str_rope rope1(std::string("wow"));
     str_rope rope2(std::string("ee!"));

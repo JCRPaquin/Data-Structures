@@ -348,6 +348,39 @@ char str_rope::operator[](size_t index) const {
     return 0;
 }
 
+void str_rope::set_char(size_t index, char c) {
+    if(index >= root->actual_size)
+        throw std::invalid_argument("index >= length of rope");
+
+    std::shared_ptr<rope_node> current = root, last = nullptr;
+    size_t node_index = index;
+
+    while (current) {
+        if (current->is_leaf) {
+            break;
+        }
+
+        if (node_index >= current->data.len) {
+            node_index -= current->data.len;
+            last = current;
+            current = current->data.right;
+        } else {
+            last = current;
+            current = current->data.left;
+        }
+    }
+
+    std::string base = *current->str;
+    base[node_index] = c;
+    auto node = std::make_shared<rope_node>(base);
+
+    if(last->data.left == current) {
+        last->set_left(node);
+    } else {
+        last->set_right(node);
+    }
+}
+
 std::unique_ptr<std::string> str_rope::to_string() const {
     return root->to_string();
 }
