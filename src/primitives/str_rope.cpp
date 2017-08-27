@@ -329,6 +329,9 @@ str_rope::nodes_between(size_t start, size_t end, size_t &start_idx) const {
 }
 
 char str_rope::operator[](size_t index) const {
+    if(index >= root->actual_size)
+        throw std::invalid_argument("index >= length of rope");
+
     std::shared_ptr<rope_node> current = root;
     size_t node_index = index;
 

@@ -195,6 +195,17 @@ TEST_CASE("Rope indexing", "[str_rope]") {
         REQUIRE(rope[0] == 'a');
         REQUIRE(rope[4] == 'e');
     }
+
+    SECTION("Hierarchy indexing") {
+        str_rope rope1("Cao");
+        str_rope rope2("il");
+        str_rope rope3("in");
+
+        rope2.append(rope3);
+        rope1.append(rope2);
+
+        REQUIRE(rope1[5] == 'i');
+    }
 }
 
 TEST_CASE("Rope character substitution", "[str_rope]") {
