@@ -401,7 +401,7 @@ std::unique_ptr<std::string> str_rope::to_string(size_t start, size_t end) const
         size_t new_len = end-start;
 
         std::string &base = *nodes->at(0)->to_string();
-        *stream << base.substr(start_idx, base.length() - start_idx);
+        *stream << base.substr(start_idx);
         new_len -= base.length() - start_idx;
 
         for(size_t i = 1; i < nodes->size(); i++) {
