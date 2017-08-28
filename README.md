@@ -19,7 +19,6 @@ The categories are as follows:
     + [ ] Strings
         * [ ] Rope
         * [ ] Trie
-    + [ ] Big integers
 - [ ] Abstract Data Types
     + [ ] Maps
         * [ ] Associative arrays

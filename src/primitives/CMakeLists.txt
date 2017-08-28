@@ -4,7 +4,7 @@ project(primitives LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(PRIMITIVES_SOURCES str_rope.cpp str_rope.h str_trie.cpp str_trie.h big_integer.cpp big_integer.h)
+set(PRIMITIVES_SOURCES str_rope.cpp str_rope.h str_trie.cpp str_trie.h)
 
 add_library(${PROJECT_NAME} ${PRIMITIVES_SOURCES})
 
