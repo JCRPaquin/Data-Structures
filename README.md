@@ -17,7 +17,7 @@ Each data structure gets:
 The categories are as follows:
 - [ ] Primitives
     + [ ] Strings
-        * [ ] Rope
+        * [x] Rope
         * [ ] Trie
 - [ ] Abstract Data Types
     + [ ] Maps
