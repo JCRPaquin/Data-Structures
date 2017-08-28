@@ -300,3 +300,11 @@ TEST_CASE("Sub-string deletion") {
         REQUIRE(*rope1.to_string() == compare);
     }
 }
+
+TEST_CASE("String insertion") {
+    str_rope rope("Caoin");
+
+    rope.insert_str(3, "il");
+
+    REQUIRE(*rope.to_string() == "Caoilin");
+}

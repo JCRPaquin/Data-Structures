@@ -501,7 +501,7 @@ void str_rope::insert_str(size_t index, const std::string &str) {
     auto node = std::make_shared<rope_node>();
     auto node2 = std::make_shared<rope_node>();
     auto leaf1 = std::make_shared<rope_node>(base.substr(0, node_index));
-    auto leaf2 = std::make_shared<rope_node>(node_index);
+    auto leaf2 = std::make_shared<rope_node>(base.substr(node_index));
     auto leaf3 = std::make_shared<rope_node>(str);
 
     node2->set_right(leaf2);
