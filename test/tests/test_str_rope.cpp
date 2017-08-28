@@ -307,4 +307,12 @@ TEST_CASE("String insertion") {
     rope.insert_str(3, "il");
 
     REQUIRE(*rope.to_string() == "Caoilin");
+
+    rope.insert_str(0, "Hi, my name is ");
+
+    REQUIRE(*rope.to_string() == "Hi, my name is Caoilin");
+
+    rope.insert_str(rope.get_length(), ".");
+
+    REQUIRE(*rope.to_string() == "Hi, my name is Caoilin.");
 }
