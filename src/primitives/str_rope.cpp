@@ -437,3 +437,44 @@ void str_rope::append(str_rope &other) {
     root = new_root;
 }
 
+void str_rope::delete_str(size_t start, size_t end) {
+    size_t end_start = 0;
+    auto start_nodes = nodes_between(0, start, end_start);
+    auto end_nodes = nodes_between(end, root->actual_size, end_start);
+
+    if(start == 0) {
+        const std::string &base = *end_nodes->at(0)->str;
+        end_nodes->at(0) = std::make_shared<rope_node>(base.substr(end_start));
+
+        reconstruct(*end_nodes);
+        return;
+    }
+
+    size_t len = 0;
+    for(size_t i = 0; i < start_nodes->size(); i++) {
+        len += start_nodes->at(i)->str->length();
+    }
+
+    if(end == root->actual_size) {
+        const std::string &base = *start_nodes->back()->str;
+        start_nodes->back() = std::make_shared<rope_node>(base.substr(len - start));
+
+        reconstruct(*start_nodes);
+    } else {
+        if(start_nodes->back() == end_nodes->front()) {
+            const std::string &base = *start_nodes->back()->str;
+            start_nodes->back() = std::make_shared<rope_node>(base.substr(0, len - start));
+            end_nodes->front() = std::make_shared<rope_node>(base.substr(end_start));
+        } else {
+            const std::string &start_base = *start_nodes->back()->str;
+            start_nodes->back() = std::make_shared<rope_node>(start_base.substr(0, start_base.length() - (len-start)));
+
+            const std::string &end_base = *end_nodes->front()->str;
+            end_nodes->front() = std::make_shared<rope_node>(end_base.substr(end_start));
+        }
+
+        start_nodes->insert(start_nodes->end(), end_nodes->begin(), end_nodes->end());
+        reconstruct(*start_nodes);
+    }
+}
+

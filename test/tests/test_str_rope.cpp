@@ -250,3 +250,53 @@ TEST_CASE("to_string sub-string version", "[str_rope]") {
 
     REQUIRE(*rope2.to_string(2, 4) == "HI");
 }
+
+TEST_CASE("Sub-string deletion") {
+    str_rope rope1("Cao");
+    str_rope rope2("il");
+    str_rope rope3("in");
+
+    rope1.append(rope2);
+    rope1.append(rope3);
+
+    std::string base("Caoilin");
+
+    SECTION("Front delete") {
+        rope1.delete_str(0, 3);
+
+        REQUIRE(*rope1.to_string() == base.substr(3));
+    }
+
+    SECTION("End delete") {
+        rope1.delete_str(3, rope1.get_length());
+
+        REQUIRE(*rope1.to_string() == base.substr(0, 3));
+    }
+
+    SECTION("Middle delete") {
+        rope1.delete_str(3, 5);
+
+        std::string compare(base.substr(0, 3));
+        compare.append(base.substr(5));
+
+        REQUIRE(*rope1.to_string() == compare);
+    }
+
+    SECTION("Middle delete 2") {
+        rope1.delete_str(4, 5);
+
+        std::string compare(base.substr(0, 4));
+        compare.append(base.substr(5));
+
+        REQUIRE(*rope1.to_string() == compare);
+    }
+
+    SECTION("Middle delete 3") {
+        rope1.delete_str(2, 5);
+
+        std::string compare(base.substr(0, 2));
+        compare.append(base.substr(5));
+
+        REQUIRE(*rope1.to_string() == compare);
+    }
+}
