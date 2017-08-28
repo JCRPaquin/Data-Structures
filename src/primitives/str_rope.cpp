@@ -478,3 +478,41 @@ void str_rope::delete_str(size_t start, size_t end) {
     }
 }
 
+void str_rope::insert_str(size_t index, const std::string &str) {
+    std::shared_ptr<rope_node> current = root, last = nullptr;
+    size_t node_index = index;
+
+    while (current) {
+        if (current->is_leaf) {
+            break;
+        }
+
+        if (node_index >= current->data.len) {
+            node_index -= current->data.len;
+            last = current;
+            current = current->data.right;
+        } else {
+            last = current;
+            current = current->data.left;
+        }
+    }
+
+    const std::string &base = *current->str;
+    auto node = std::make_shared<rope_node>();
+    auto node2 = std::make_shared<rope_node>();
+    auto leaf1 = std::make_shared<rope_node>(base.substr(0, node_index));
+    auto leaf2 = std::make_shared<rope_node>(node_index);
+    auto leaf3 = std::make_shared<rope_node>(str);
+
+    node2->set_right(leaf2);
+    node2->set_left(leaf3);
+    node->set_right(node2);
+    node->set_left(leaf1);
+
+    if(last->data.left == current) {
+        last->data.left = node;
+    } else {
+        last->data.right = node;
+    }
+}
+
