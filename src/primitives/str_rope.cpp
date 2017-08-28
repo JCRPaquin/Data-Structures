@@ -76,6 +76,9 @@ void rope_node::update_size() {
         if(data.left) {
             data.left->update_size();
             actual_size += data.left->actual_size;
+            data.len = data.left->actual_size;
+        } else {
+            data.len = 0;
         }
 
         if(data.right) {
@@ -479,6 +482,12 @@ void str_rope::delete_str(size_t start, size_t end) {
 }
 
 void str_rope::insert_str(size_t index, const std::string &str) {
+    if(index == get_length()) {
+        str_rope rope(str);
+        append(rope);
+        return;
+    }
+
     std::shared_ptr<rope_node> current = root, last = nullptr;
     size_t node_index = index;
 
@@ -523,5 +532,7 @@ void str_rope::insert_str(size_t index, const std::string &str) {
     } else {
         last->data.right = node;
     }
+
+    root->update_size();
 }
 
