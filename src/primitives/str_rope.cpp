@@ -504,10 +504,19 @@ void str_rope::insert_str(size_t index, const std::string &str) {
     auto leaf2 = std::make_shared<rope_node>(base.substr(node_index));
     auto leaf3 = std::make_shared<rope_node>(str);
 
-    node2->set_right(leaf2);
-    node2->set_left(leaf3);
-    node->set_right(node2);
-    node->set_left(leaf1);
+    if(node_index == 0) {
+        node->set_left(leaf3);
+        node->set_right(leaf2);
+    } else if(node_index == base.length()) {
+        node->set_left(leaf1);
+        node->set_right(leaf3);
+    } else {
+        node2->set_right(leaf2);
+        node2->set_left(leaf3);
+        node->set_right(node2);
+        node->set_left(leaf1);
+    }
+
 
     if(last->data.left == current) {
         last->data.left = node;
